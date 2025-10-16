@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ARSLAN-MD-MINI | VIP ACCESS</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --neon: #00ff8a;
+      --neon-2: #00ffb3;
+      --dark: #030a05;
+      --panel: rgba(0,0,0,0.65);
+      --glass-border: rgba(0,255,138,0.12);
+      --glow: 0 0 12px rgba(0,255,138,0.6), 0 0 30px rgba(0,255,138,0.18);
+      --muted: rgba(255,255,255,0.65);
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family:'Rajdhani',sans-serif;
+      background: radial-gradient(circle at 10% 10%, #00160f 0%, var(--dark) 55%);
+      color:var(--neon-2);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:30px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    /* subtle background image (kept as original but dimmed) */
+    body::before{
+      content:"";
+      position:absolute;inset:0;
+      background:url("https://files.catbox.moe/lz5xl6.jpg") center/cover no-repeat;
+      opacity:0.07; z-index:0;
+    }
+
+    .particles{position:absolute;inset:0;z-index:0;pointer-events:none}
+    .particle{position:absolute;border-radius:50%;background:rgba(0,255,138,0.45);pointer-events:none;opacity:0.9;mix-blend-mode:screen}
+
+    .container{
+      width:100%;
+      max-width:880px;
+      z-index:2;
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+      align-items:center;
+    }
+
+    .top-row{
+      width:100%;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      align-items:center;
+    }
+
+    .navigation{
+      display:flex;
+      gap:10px;
+      width:100%;
+      justify-content:flex-start;
+      align-items:center;
+    }
+    .nav-item{
+      padding:8px 12px;
+      border-radius:10px;
+      background:linear-gradient(90deg, rgba(0,0,0,0.45), rgba(0,0,0,0.25));
+      color:var(--neon-2);
+      border:1px solid var(--glass-border);
+      font-weight:600;
+      font-size:13px;
+      cursor:pointer;
+      transition:all .18s ease;
+      backdrop-filter: blur(6px);
+    }
+    .nav-item:hover{transform:translateY(-3px);box-shadow:var(--glow)}
+
+    .vip-badge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:8px 18px;
+      border-radius:999px;
+      background:linear-gradient(90deg,var(--neon) 0%, var(--neon-2) 100%);
+      color:#001b10;
+      font-weight:800;
+      box-shadow:var(--glow);
+      text-transform:uppercase;
+      letter-spacing:1.5px;
+    }
+    .vip-badge i{font-size:15px}
+
+    .box{
+      width:100%;
+      background:var(--panel);
+      border-radius:14px;
+      padding:26px;
+      box-shadow:0 8px 40px rgba(0,0,0,0.6), var(--glow);
+      border:1px solid var(--glass-border);
+      position:relative;
+      overflow:hidden;
+      backdrop-filter: blur(8px);
+    }
+
+    .box::before{
+      content:"";
+      position:absolute;inset:-30% -20% auto -20%;
+      height:180px;
+      background:linear-gradient(90deg, transparent, rgba(0,255,138,0.06), transparent);
+      transform:rotate(12deg);
+      animation:slide 5s linear infinite;
+      z-index:0;
+    }
+    @keyframes slide{0%{transform:translateX(-200px) rotate(12deg)}100%{transform:translateX(200px) rotate(12deg)}}
+
+    .logo{display:flex;flex-direction:column;align-items:center;gap:6px;margin-bottom:8px;position:relative;z-index:1}
+    .logo-text{
+      font-family:'Orbitron',sans-serif;
+      font-weight:900;
+      font-size:28px;
+      background:linear-gradient(90deg,var(--neon) 0%, var(--neon-2) 60%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+      text-shadow:0 0 10px rgba(0,255,138,0.12);
+      letter-spacing:1.5px;
+    }
+    .logo-subtext{font-size:12px;color:var(--muted);letter-spacing:3px;text-transform:uppercase}
+
+    .header{text-align:center;margin:6px 0 14px;position:relative;z-index:1}
+    .header h3{font-family:'Orbitron',sans-serif;font-size:18px;margin-bottom:6px;color:var(--neon-2);text-shadow:0 0 8px rgba(0,255,138,0.08)}
+    .header h6{font-size:13px;color:#a8ffd4;margin-bottom:6px}
+
+    /* input area - preserved original logic but styled neon */
+    .input-container{
+      display:flex;gap:8px;width:100%;border-radius:12px;padding:6px;border:1px solid var(--glass-border);
+      background:linear-gradient(180deg, rgba(0,0,0,0.24), rgba(0,0,0,0.12));
+      align-items:center;position:relative;z-index:1;
+    }
+    .input-container input{
+      flex:1;background:transparent;border:none;color:var(--neon-2);
+      padding:14px;border-radius:10px;font-size:15px;border-left:3px solid rgba(0,255,138,0.06);
+      outline:none;font-weight:600;
+    }
+    .input-container input::placeholder{color:rgba(0,255,138,0.35)}
+    .input-container button{
+      padding:12px 16px;border-radius:10px;border:none;font-weight:800;text-transform:uppercase;
+      background:linear-gradient(90deg,var(--neon) 0%, var(--neon-2) 100%);color:#00220f;cursor:pointer;
+      box-shadow:0 6px 18px rgba(0,255,138,0.12);
+    }
+    .input-container button:disabled{opacity:.6;cursor:not-allowed}
+
+    .status-message{min-height:26px;text-align:center;margin-top:10px;font-size:14px;color:var(--muted)}
+
+    /* result - code area (kept format) */
+    .result-container{
+      margin-top:14px;background:rgba(0,0,0,0.45);border-radius:12px;padding:12px;border:1px solid var(--glass-border);
+      box-shadow:inset 0 0 12px rgba(0,255,138,0.06);
+    }
+    .code-display{display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap}
+    .code-box{
+      background:linear-gradient(90deg,var(--neon) 0%, var(--neon-2) 100%);color:#001b10;padding:10px 18px;border-radius:10px;font-weight:800;
+      font-size:16px;letter-spacing:1.5px;cursor:pointer;box-shadow:0 6px 18px rgba(0,255,138,0.12);
+    }
+    .copy-btn{
+      background:transparent;border:1px solid var(--glass-border);padding:10px;border-radius:10px;color:var(--neon-2);cursor:pointer;
+      display:flex;align-items:center;justify-content:center;
+    }
+
+    .instructions{font-size:12px;color:rgba(255,255,255,0.65);margin-top:8px;text-align:center}
+
+    .social-media{display:flex;gap:12px;justify-content:center;margin-top:16px}
+    .social-icon{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1px solid var(--glass-border);color:var(--neon-2);background:transparent}
+    .social-icon:hover{box-shadow:var(--glow);transform:translateY(-4px);background:linear-gradient(90deg,var(--neon) 0%, var(--neon-2) 100%);color:#001b10}
+
+    .fact-container{margin-top:14px;background:rgba(0,0,0,0.38);padding:12px;border-radius:12px;border:1px solid var(--glass-border);color:var(--muted);text-align:center}
+    .fact-title{font-family:'Orbitron',sans-serif;font-size:14px;color:var(--neon);text-transform:uppercase;margin-bottom:6px}
+
+    .powered-by{margin-top:10px;font-size:12px;color:rgba(255,255,255,0.65)}
+    .footer{font-size:11px;color:rgba(255,255,255,0.45);margin-top:8px;text-align:center}
+
+    /* NEW: console / coding area (animated typewriter style) */
+    .console-wrap{width:100%;margin-top:18px;border-radius:12px;overflow:hidden;border:1px solid rgba(0,255,138,0.06);box-shadow:0 10px 40px rgba(0,0,0,0.6)}
+    .console{
+      background:linear-gradient(180deg, rgba(0,0,0,0.9), rgba(2,6,4,0.85));
+      padding:16px 18px;font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
+      color:var(--neon-2);font-size:13px;line-height:1.5;min-height:110px;max-height:240px;overflow:auto;
+    }
+    .console .line{opacity:0.98;margin-bottom:6px;white-space:pre-wrap}
+    .console .muted{color:rgba(0,255,138,0.45);font-weight:600}
+    .console .success{color:#b7ffd6;font-weight:800}
+    .console .error{color:#ff9d9d;font-weight:700}
+
+    /* small screens */
+    @media (max-width:560px){
+      .container{padding:12px}
+      .box{padding:18px}
+      .logo-text{font-size:22px}
+      .console{font-size:12px}
+      .input-container input{padding:12px}
+    }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+
+  <div class="container">
+    <div class="top-row">
+      <div class="navigation">
+        <div class="nav-item">Home</div>
+        <div class="nav-item">Features</div>
+        <div class="nav-item">Services</div>
+        <div class="nav-item">Support</div>
+      </div>
+
+      <div class="vip-badge"><i class="fas fa-crown"></i> ARSLAN-MD-MINI VIP</div>
+
+      <div class="box">
+        <div class="logo">
+          <div class="logo-text">QUANTUM LINK</div>
+          <div class="logo-subtext">SECURE ACCESS</div>
+        </div>
+
+        <div class="header">
+          <h3><i class="fas fa-infinity"></i> LINK WITH PHONE NUMBER <i class="fas fa-infinity"></i></h3>
+          <h6><i class="fas fa-tree"></i> ENTER YOUR NUMBER WITH COUNTRY CODE <i class="fas fa-tree"></i></h6>
+        </div>
+
+        <div class="input-container">
+          <input placeholder="+923XXXXXXXX" type="tel" id="number" name="number" />
+          <button id="submit"><i class="fas fa-paper-plane"></i> ENTER</button>
+        </div>
+
+        <div class="status-message" id="status"></div>
+
+        <main id="pair"></main>
+
+        <div class="social-media">
+          <a href="#" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-telegram"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+        </div>
+
+        <div class="fact-container">
+          <div class="fact-title">Did You Know?</div>
+          <div class="fact-text">WhatsApp processes over 100 billion messages daily, making it one of the most powerful communication platforms in the world.</div>
+        </div>
+
+        <div class="powered-by">Powered by <span style="color:var(--neon-2);font-weight:800">Arslan-MD/ARSLAN-MD-MINI</span> | <span>2025</span> Edition</div>
+      </div>
+    </div>
+
+    <!-- Console area (bottom) -->
+    <div class="console-wrap" aria-hidden="false">
+      <div id="console" class="console" role="log" aria-live="polite"></div>
+    </div>
+
+    <div class="footer">
+      <p>© 2025 ARSLAN-MD-MINI | SECURE CONNECTION SYSTEM</p>
+    </div>
+  </div>
+
+  <script>
+    /********** Particles (green) **********/
+    function createParticles(){
+      const container = document.getElementById('particles');
+      const count = 28;
+      for(let i=0;i<count;i++){
+        const p = document.createElement('div');
+        p.className = 'particle';
+        const size = (Math.random()*6)+2;
+        p.style.width = p.style.height = size + 'px';
+        p.style.left = Math.random()*100 + '%';
+        p.style.top = Math.random()*100 + '%';
+        p.style.opacity = (Math.random()*0.6)+0.3;
+        p.style.filter = 'blur(' + (Math.random()*2) + 'px)';
+        p.style.transform = 'translateZ(0)';
+        container.appendChild(p);
+        animateParticle(p);
+      }
+    }
+    function animateParticle(el){
+      const dur = 8 + Math.random()*12;
+      const dx = (Math.random()*200)-100;
+      const dy = (Math.random()*80)-40;
+      el.animate([
+        { transform: `translate(0px,0px)`, opacity: el.style.opacity },
+        { transform: `translate(${dx}px, ${dy}px)`, opacity: (0.2+Math.random()*0.8) }
+      ], {duration: dur*1000, iterations: Infinity, direction: 'alternate', easing: 'ease-in-out'});
+    }
+
+    /********** Console (typewriter-like) **********/
+    const consoleEl = document.getElementById('console');
+
+    function appendLine(text, cls){
+      const line = document.createElement('div');
+      line.className = 'line' + (cls ? ' ' + cls : '');
+      line.textContent = text;
+      consoleEl.appendChild(line);
+      consoleEl.scrollTop = consoleEl.scrollHeight;
+    }
+
+    // type text character by character into console (returns promise)
+    function typeLine(text, cls, speed = 18){
+      return new Promise(resolve => {
+        const line = document.createElement('div');
+        line.className = 'line' + (cls ? ' ' + cls : '');
+        consoleEl.appendChild(line);
+        let i = 0;
+        function step(){
+          if(i <= text.length){
+            line.textContent = text.slice(0, i);
+            consoleEl.scrollTop = consoleEl.scrollHeight;
+            i++;
+            setTimeout(step, speed);
+          } else {
+            resolve();
+          }
+        }
+        step();
+      });
+    }
+
+    function clearConsole(){
+      consoleEl.innerHTML = '';
+    }
+
+    /********** Keep original DOM references and logic intact **********/
+    const pairElement = document.getElementById("pair");
+    const submitButton = document.getElementById("submit");
+    const numberInput = document.getElementById("number");
+    const statusMessage = document.getElementById("status");
+
+    // format as user types (original logic preserved)
+    numberInput.addEventListener('input', function(e){
+      let value = e.target.value.replace(/\D/g,'');
+      if(value){
+        value = '+' + value;
+        e.target.value = value;
+      }
+    });
+
+    // copy code (kept same behavior)
+    async function copyCode(){
+      const codeElement = document.getElementById("code-text");
+      if(!codeElement) return;
+      const code = codeElement.innerText;
+      try{
+        await navigator.clipboard.writeText(code);
+        const copyButton = document.getElementById("copy-button");
+        if(copyButton){
+          copyButton.innerHTML = '<i class="fas fa-check"></i>';
+          setTimeout(()=> copyButton.innerHTML = '<i class="fas fa-copy"></i>', 2000);
+        }
+        statusMessage.innerHTML = '<span style="color: var(--neon);">Code copied to clipboard!</span>';
+        appendLine('> Code copied to clipboard ✔️','muted');
+      }catch(err){
+        statusMessage.innerHTML = '<span style="color:#ff9d9d;">Failed to copy code</span>';
+        appendLine('> Copy failed ✖️','error');
+      }
+    }
+
+    // submit handler (logic preserved; enhanced console sequence)
+    submitButton.addEventListener("click", async (e) => {
+      e.preventDefault();
+
+      if(!numberInput.value){
+        statusMessage.innerHTML = '<span style="color:#ff9d9d;"><i class="fas fa-exclamation-circle"></i> Please enter your WhatsApp number</span>';
+        appendLine('> No number entered — aborting','error');
+        return;
+      }
+
+      const cleanNumber = numberInput.value.replace(/\D/g, "");
+      if(cleanNumber.length < 11){
+        statusMessage.innerHTML = '<span style="color:#ff9d9d;"><i class="fas fa-exclamation-circle"></i> Invalid number format</span>';
+        appendLine('> Invalid number format — must include country code','error');
+        return;
+      }
+
+      // UI feedback (original)
+      statusMessage.innerHTML = '<span style="color: var(--neon);"><i class="fas fa-spinner fa-spin"></i> Processing your request...</span>';
+      submitButton.disabled = true;
+
+      // start console sequence
+      clearConsole();
+      await typeLine('> Initializing secure link module...', 'muted', 18);
+      await delay(300);
+      await typeLine(`> Connecting to server...`, 'muted', 18);
+      await delay(600);
+
+      try{
+        // call remains the same (original endpoint)
+        const response = await fetch(`/code?number=${cleanNumber}`);
+
+        if(!response.ok) throw new Error('Service unavailable');
+
+        // show verifying then parse
+        await typeLine(`> Verifying number: +${cleanNumber}`, 'muted', 14);
+        await delay(600);
+        const data = await response.json();
+        const code = data.code || "SERVICE_UNAVAILABLE";
+
+        await typeLine('> Generating pair code...', 'muted', 16);
+        await delay(700);
+
+        // Display the code in the original result UI (preserved)
+        pairElement.innerHTML = `
+          <div class="result-container">
+            <div class="code-display">
+              <div class="code-box" id="code-box" onclick="copyCode()">
+                <span style="opacity:.9">CODE:</span>&nbsp;<span id="code-text" style="font-weight:900">${escapeHtml(code)}</span>
+              </div>
+              <button class="copy-btn" id="copy-button" onclick="copyCode()">
+                <i class="fas fa-copy"></i>
+              </button>
+            </div>
+            <div class="instructions">Click to copy</div>
+          </div>
+        `;
+
+        // console logs showing the real code
+        await typeLine(`> Pair code: ${code}`, 'success', 12);
+        await delay(180);
+        await typeLine('> Process complete ✅', 'muted', 16);
+
+        statusMessage.innerHTML = '<span style="color: var(--neon);"><i class="fas fa-check-circle"></i> Code generated successfully!</span>';
+      }catch(error){
+        statusMessage.innerHTML = '<span style="color:#ff9d9d;"><i class="fas fa-exclamation-triangle"></i> ❌ ERROR FETCHING CODE. TRY AGAIN ❌</span>';
+        pairElement.innerHTML = '';
+        await typeLine('> ERROR: Unable to fetch code from server', 'error', 14);
+        await delay(200);
+        await typeLine('> Please check server status or try again later', 'muted', 14);
+        console.error(error);
+      } finally {
+        submitButton.disabled = false;
+      }
+    });
+
+    // small helper to delay
+    function delay(ms){ return new Promise(res=>setTimeout(res, ms)); }
+
+    // escape HTML to avoid injection in code text
+    function escapeHtml(str){
+      if(!str) return '';
+      return String(str).replace(/[&<>"']/g, function(m){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])});
+    }
+
+    // initialize
+    document.addEventListener('DOMContentLoaded', function(){
+      createParticles();
+    });
+  </script>
+</body>
+</html>

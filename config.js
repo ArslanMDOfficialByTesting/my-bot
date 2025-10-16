@@ -1,0 +1,21 @@
+module.exports = {
+    AUTO_VIEW_STATUS: 'true',
+    AUTO_LIKE_STATUS: 'true',
+    AUTO_RECORDING: 'true',
+    AUTO_LIKE_EMOJI: ['🧩', '🍉', '💜', '🌸', '🪴', '💊', '💫', '🍂', '🌟', '🎋', '😶‍🌫️', '🫀', '🧿', '👀', '😘', '🚩', '🥰', '🗿', '💜', '💙', '🌝', '🖤', '💗'],
+    PREFIX: '.',
+    MAX_RETRIES: 3,
+    GROUP_INVITE_LINK: 'https://chat.whatsapp.com/KRyARlvcUjoIv1CPSSyQA5?mode=ems_copy_t',
+    ADMIN_LIST_PATH: './admin.json',
+    IMAGE_PATH: 'https://files.catbox.moe/lz5xl6.jpg',
+    NEWSLETTER_JID: '120363348739987203@newsletter
+    NEWSLETTER_MESSAGE_ID: '428',
+    OTP_EXPIRY: 300000,
+    NEWS_JSON_URL: '',
+    BOT_NAME: '𝘼𝙍𝙎𝙇𝘼𝙉-𝙈𝘿-𝙈𝙄𝙉𝙄',
+    OWNER_NAME: '𝐀𝐫𝐬𝐥𝐚𝐧𝐌𝐃 𝐎𝐟𝐟𝐢𝐜𝐢𝐚𝐥,
+    OWNER_NUMBER: '923237045919',
+    BOT_VERSION: '5.0.0',
+    BOT_FOOTER: '> © 𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐛𝐲 𝐀𝐫𝐬𝐥𝐚𝐧𝐌𝐃 𝐎𝐟𝐟𝐢𝐜𝐢𝐚𝐥,
+    CHANNEL_LINK: 'https://whatsapp.com/channel/0029VarfjW04tRrmwfb8x306',
+};
