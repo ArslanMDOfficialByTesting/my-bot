@@ -24,7 +24,7 @@ const config = {
     PREFIX: process.env.PREFIX || '.',
     MAX_RETRIES: parseInt(process.env.MAX_RETRIES) || 3,
     ADMIN_LIST_PATH: process.env.ADMIN_LIST_PATH || './admin.json',
-    IMAGE_PATH: process.env.IMAGE_PATH || 'https://files.catbox.moe/lz5xl6.jpg',
+    IMAGE_PATH: process.env.IMAGE_PATH || 'https://files.catbox.moe/m03799.jpg',
     NEWSLETTER_JID: process.env.NEWSLETTER_JID || '120363348739987203@newsletter',
     NEWSLETTER_MESSAGE_ID: process.env.NEWSLETTER_MESSAGE_ID || '428',
     OTP_EXPIRY: parseInt(process.env.OTP_EXPIRY) || 300000,
@@ -36,11 +36,11 @@ const config = {
     BOT_FOOTER: process.env.BOT_FOOTER || '> © 𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐛𝐲 𝐀𝐫𝐬𝐥𝐚𝐧𝐌𝐃 𝐎𝐟𝐟𝐢𝐜𝐢𝐚𝐥',
     CHANNEL_LINK: process.env.CHANNEL_LINK || '',
     BUTTON_IMAGES: {
-        ALIVE: process.env.BUTTON_IMAGE_ALIVE || 'https://files.catbox.moe/lz5xl6.jpg',
-        MENU: process.env.BUTTON_IMAGE_MENU || 'https://files.catbox.moe/lz5xl6.jpg',
-        OWNER: process.env.BUTTON_IMAGE_OWNER || 'https://files.catbox.moe/lz5xl6.jpg',
-        SONG: process.env.BUTTON_IMAGE_SONG || 'https://files.catbox.moe/lz5xl6.jpg',
-        VIDEO: process.env.BUTTON_IMAGE_VIDEO || 'https://files.catbox.moe/lz5xl6.jpg'
+        ALIVE: process.env.BUTTON_IMAGE_ALIVE || 'https://files.catbox.moe/m03799.jpg',
+        MENU: process.env.BUTTON_IMAGE_MENU || 'https://files.catbox.moe/m03799.jpg',
+        OWNER: process.env.BUTTON_IMAGE_OWNER || 'https://files.catbox.moe/m03799.jpg',
+        SONG: process.env.BUTTON_IMAGE_SONG || 'https://files.catbox.moe/m03799.jpg',
+        VIDEO: process.env.BUTTON_IMAGE_VIDEO || 'https://files.catbox.moe/m03799.jpg'
     },
     API_URL: process.env.API_URL || 'https://api-dark-shan-yt.koyeb.app',
     API_KEY: process.env.API_KEY || 'edbcfabbca5a9750'
@@ -483,7 +483,7 @@ const mediaFunctions = {
                     imgBuffer = await mediaFunctions.resize(item.thumbnail, 300, 200);
                 } catch (error) {
                     console.error(`Failed to resize image for ${item.title}:`, error.message);
-                    const defaultImg = await Jimp.read('https://files.catbox.moe/lz5xl6.jpg');
+                    const defaultImg = await Jimp.read('https://files.catbox.moe/m03799.jpg');
                     imgBuffer = await defaultImg.resize(300, 200).getBufferAsync(Jimp.MIME_JPEG);
                 }
                 
@@ -1322,7 +1322,7 @@ handleFb: async (socket, sender, args, msg, reply) => {
     const footer = `⚡ ${socket.userConfig.BOT_FOOTER}`;
 
     await socket.sendMessage(sender, {
-        image: { url: "https://files.catbox.moe/lz5xl6.jpg" },
+        image: { url: "https://files.catbox.moe/m03799.jpg" },
         caption: utils.formatMessage(title, content, footer)
     });
 },
@@ -1438,38 +1438,34 @@ handleSong: async (socket, sender, args, msg, reply) => {
         react: { text: "📥", key: msg.key }
     });
 
-   // 2. Call your API with video URL
+    // 2. Call your API with video URL
     let apiUrl = `https://jawad-tech.vercel.app/download/yt?url=${encodeURIComponent(video.url)}`;
     let res = await axios.get(apiUrl);
 
     if (!res.data.status) {
       return reply("❌ Failed to fetch audio. Try again later.");
     }
-        const meta = data.result.metadata;
-        const dl = data.result.download;
 
-        // Send song info with thumbnail
-        await socket.sendMessage(sender, {
-            image: { url: meta.thumbnail },
-            caption: `🎶 *${meta.title}*\n\n` +
-                     `👤 Artist: *${meta.author?.name || "Unknown"}*\n` +
-                     `⏱ Duration: *${meta.timestamp}*\n` +
-                     `👀 Views: *${meta.views.toLocaleString()}*\n` +
-                     `📅 Uploaded: *${meta.ago}*\n\n` +
-                     `>𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐛𝐲 𝐀𝐫𝐬𝐥𝐚𝐧𝐌𝐃 𝐎𝐟𝐟𝐢𝐜𝐢𝐚𝐥`
-        }, { quoted: msg });
+    // 3. Send audio file first
+    await conn.sendMessage(from, {
+      audio: { url: res.data.result },
+      mimetype: "audio/mpeg",
+      ptt: false,
+      contextInfo: { forwardingScore: 999, isForwarded: true }
+    }, { quoted: mek });
 
-        // Send audio file
-        await socket.sendMessage(sender, {
-            audio: { url: dl.url },
-            mimetype: "audio/mpeg",
-            fileName: dl.filename || `${meta.title}.mp3`,
-            caption: `🎶 *${meta.title}*`
-        }, { quoted: msg });
+    // 4. Then reply with success message
+    await reply(`‎*_𝘼𝙍𝙎𝙇𝘼𝙉-𝙓𝙈𝘿 𝙔𝙏 𝘿𝙊𝙒𝙉𝙇𝙊𝘼𝘿𝙀𝙍_*
+‎*╭───────────────━┈⍟*
+‎ ‎*┋* *${video.title}*
+‎*╰───────────────━┈⍟*
+‎*╭────◉◉◉─────────៚*
+‎*┋* *_𝙋𝙊𝙒𝙀𝙍𝙀𝘿 𝘽𝙔 𝘼𝙍𝙎𝙇𝘼𝙉-𝙈𝘿_* 
+‎*╰────◉◉◉─────────៚*`);
 
-    } catch (err) {
-        console.error("Song error:", err.message);
-        reply("There is an error downloading Youtube Audios please Contact arslan-md");
+  } catch (e) {
+    console.error("play error:", e);
+    reply("❌ Error while downloading audio.");
     }
 },
 handleFetch: async (socket, sender, args, msg, reply) => {
