@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.listen(PORT, () => {
     console.log(`
- ɢɪᴠᴇ ᴀ ꜱᴛᴀʀ ᴛᴏ ᴄʏʙᴇʀᴅᴇᴠs ᴍɪɴɪ
+ GIVE A START ARSLAN-MD-MINI
 
 
 Server running on http://localhost:` + PORT)
