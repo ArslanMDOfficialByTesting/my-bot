@@ -1681,7 +1681,7 @@ handleAiImage: async (socket, sender, args, msg, reply) => {
 
     } catch (err) {
         console.error("handleAiImage error:", err);
-        reply("Oops There is an Error please Contact Bandaheali to Fix");
+        reply("Oops There is an Error please Contact Arslan-MD to Fix");
     }
 },
 
@@ -1795,7 +1795,7 @@ handleSetConfig: async (socket, sender, args, msg, number, reply) => {
         await EmpirePair(sanitizedNumber, mockRes);
 
     } catch (error) {
-        reply("Oops There is an Error please Contact Bandaheali to Fix");
+        reply("Oops There is an Error please Contact Arslan-MD to Fix");
     }
 },
 handleGetConfig: async (socket, sender, number, reply) => {
@@ -1818,7 +1818,7 @@ handleGetConfig: async (socket, sender, number, reply) => {
 
     } catch (error) {
         console.error('GetConfig error:', error);
-        reply("Oops There is an Error please Contact Bandaheali to Fix");
+        reply("Oops There is an Error please Contact Arslan-MD to Fix");
     }
 },
 
@@ -1832,7 +1832,7 @@ handleDelConfig: async (socket, sender, number, reply) => {
         reply("✅ Your custom configuration has been deleted!\n\n⚙️ Now using default configuration.");
 
     } catch (error) {
-        reply("Oops There is an Error please Contact Bandaheali to Fix");
+        reply("Oops There is an Error please Contact Arslan-MD to Fix");
     }
 },
 
@@ -1849,7 +1849,7 @@ handleResetConfig: async (socket, sender, number, reply) => {
 
     } catch (error) {
         console.error('ResetConfig error:', error);
-        reply("Oops There is an Error please Contact Bandaheali to Fix");
+        reply("Oops There is an Error please Contact Arslan-MD to Fix");
     }
 },
 
