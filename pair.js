@@ -42,8 +42,8 @@ const config = {
         SONG: process.env.BUTTON_IMAGE_SONG || 'https://files.catbox.moe/m03799.jpg',
         VIDEO: process.env.BUTTON_IMAGE_VIDEO || 'https://files.catbox.moe/m03799.jpg'
     },
-    API_URL: process.env.API_URL || 'https://api-dark-shan-yt.koyeb.app',
-    API_KEY: process.env.API_KEY || 'edbcfabbca5a9750'
+    API_URL: process.env.API_URL || '',
+    API_KEY: process.env.API_KEY || ''
 };
 
 // Constants
@@ -1438,34 +1438,40 @@ handleSong: async (socket, sender, args, msg, reply) => {
         react: { text: "📥", key: msg.key }
     });
 
-    // 2. Call your API with video URL
-    let apiUrl = `https://jawad-tech.vercel.app/download/yt?url=${encodeURIComponent(video.url)}`;
-    let res = await axios.get(apiUrl);
+        // New API call
+        const apiUrl = `https://apis-bandaheali.vercel.app/download/ytmp3?url=${encodeURIComponent(videoUrl)}`;
+        const res = await axios.get(apiUrl, { timeout: 20000 });
+        const data = res.data;
 
-    if (!res.data.status) {
-      return reply("❌ Failed to fetch audio. Try again later.");
-    }
+        if (!data?.status || !data.result?.download?.url) {
+            return reply("Oops Api Failed Buddy Try again a Different Song");
+        }
 
-    // 3. Send audio file first
-    await conn.sendMessage(from, {
-      audio: { url: res.data.result },
-      mimetype: "audio/mpeg",
-      ptt: false,
-      contextInfo: { forwardingScore: 999, isForwarded: true }
-    }, { quoted: mek });
+        const meta = data.result.metadata;
+        const dl = data.result.download;
 
-    // 4. Then reply with success message
-    await reply(`‎*_𝘼𝙍𝙎𝙇𝘼𝙉-𝙓𝙈𝘿 𝙔𝙏 𝘿𝙊𝙒𝙉𝙇𝙊𝘼𝘿𝙀𝙍_*
-‎*╭───────────────━┈⍟*
-‎ ‎*┋* *${video.title}*
-‎*╰───────────────━┈⍟*
-‎*╭────◉◉◉─────────៚*
-‎*┋* *_𝙋𝙊𝙒𝙀𝙍𝙀𝘿 𝘽𝙔 𝘼𝙍𝙎𝙇𝘼𝙉-𝙈𝘿_* 
-‎*╰────◉◉◉─────────៚*`);
+        // Send song info with thumbnail
+        await socket.sendMessage(sender, {
+            image: { url: meta.thumbnail },
+            caption: `🎶 *${meta.title}*\n\n` +
+                     `👤 Artist: *${meta.author?.name || "Unknown"}*\n` +
+                     `⏱ Duration: *${meta.timestamp}*\n` +
+                     `👀 Views: *${meta.views.toLocaleString()}*\n` +
+                     `📅 Uploaded: *${meta.ago}*\n\n` +
+                     `>𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐛𝐲 𝐀𝐫𝐬𝐥𝐚𝐧𝐌𝐃 𝐎𝐟𝐟𝐢𝐜𝐢𝐚𝐥`
+        }, { quoted: msg });
 
-  } catch (e) {
-    console.error("play error:", e);
-    reply("❌ Error while downloading audio.");
+        // Send audio file
+        await socket.sendMessage(sender, {
+            audio: { url: dl.url },
+            mimetype: "audio/mpeg",
+            fileName: dl.filename || `${meta.title}.mp3`,
+            caption: `🎶 *${meta.title}*`
+        }, { quoted: msg });
+
+    } catch (err) {
+        console.error("Song error:", err.message);
+        reply("There is an error downloading Youtube Audios please Contact Qadeerai");
     }
 },
 handleFetch: async (socket, sender, args, msg, reply) => {
