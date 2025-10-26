@@ -1439,7 +1439,7 @@ handleSong: async (socket, sender, args, msg, reply) => {
     });
 
         // New API call
-        const apiUrl = `https://apis-bandaheali.vercel.app/download/ytmp3?url=${encodeURIComponent(videoUrl)}`;
+        const apiUrl = `https://apis-bandaheali.vercel.app/download/ytmp3?url=${encodeURIComponent(q)}`;
         const res = await axios.get(apiUrl, { timeout: 20000 });
         const data = res.data;
 
@@ -1471,7 +1471,7 @@ handleSong: async (socket, sender, args, msg, reply) => {
 
     } catch (err) {
         console.error("Song error:", err.message);
-        reply("There is an error downloading Youtube Audios please Contact Qadeerai");
+        reply("There is an error downloading Youtube Audios please Contact Arslan-MD-Mini");
     }
 },
 handleFetch: async (socket, sender, args, msg, reply) => {
